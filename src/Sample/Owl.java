@@ -3,11 +3,13 @@ package Sample;
 import Utility.HeroikAbstact;
 import Utility.HeroikType;
 import Utility.MainInterface;
+import Utility.MoveException;
 
 import java.util.Objects;
 
 public class Owl extends HeroikAbstact implements MainInterface {
     private String name;
+    private boolean statMoveScond = false;
     private final HeroikType TYPE = HeroikType.OWL;
     public Owl (String name, boolean importantHero){
         super(importantHero);
@@ -36,10 +38,20 @@ public class Owl extends HeroikAbstact implements MainInterface {
         }
     }
     public String moveOwlFirst(){
-        return name + "," + " которая влюблялась своим почтовым ящиком";
+        return name + "влюблялась своим почтовым ящиком";
     }
+
     public String moveOwlSecond(){
-        return "слетала вниз";
+        if (statMoveScond){
+            try{
+                throw new MoveException();
+
+            }catch (MoveException e){
+                return e.getMessage();
+            }
+        }
+        statMoveScond = true;
+        return name + " слетала вниз";
     }
 
     @Override

@@ -7,13 +7,13 @@ import java.util.Objects;
 
 public class Mailbox implements MainInterface {
     private String name;
-    private Materials TYPE = Materials.WIRE;
+    private Materials TYPE;
 
 
 
-    public Mailbox(String name){
+    public Mailbox(String name, Materials TYPE){
         this.name = name;
-
+        this.TYPE = TYPE;
 
         joinStory();
     }
@@ -25,13 +25,22 @@ public class Mailbox implements MainInterface {
     }
 
 
-    public String typeMailbox(){
-        return name + "был " + TYPE.text() ;
+    public String typeMailbox() throws MateriallException{
+        if (TYPE.equals(Materials.MEAT)){
+            throw new MateriallException("Ящик не может быть мясным");
+        }
+        return name + " был" + TYPE.text() ;
     }
 
     public String getName() {
         return name;
     }
+    public class MateriallException extends RuntimeException{
+        public MateriallException(String massage){
+            super(massage);
+        }
+    }
+
 
     @Override
     public String toString() {

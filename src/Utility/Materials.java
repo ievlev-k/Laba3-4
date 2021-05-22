@@ -8,13 +8,13 @@ public enum Materials {
     public String text(){
         switch (this){
             case MEAT:
-                return "мясной";
+                return " мясной";
             case TREE:
-                return "деревянный";
+                return " деревянный";
             case WIRE:
-                return "проволочный";
+                return " проволочный";
             case GLASS:
-                return "стеклянный";
+                return " стеклянный";
         }
         return null;
     }
