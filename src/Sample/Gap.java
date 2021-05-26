@@ -1,24 +1,31 @@
 package Sample;
 
+import Utility.GapPlaces;
 import Utility.MainInterface;
 
 import java.util.Objects;
 
 public class Gap implements MainInterface {
     private String name;
-
-    public Gap(String name){
+    private GapPlaces gapPlaces = GapPlaces.DOOR;
+    public Gap(String name, GapPlaces gapPlaces ){
         this.name = name;
+        this.gapPlaces = gapPlaces;
+
         joinStory();
     }
 
     public static class Title implements MainInterface{
         private String nameTitle;
-
-        public Title(String nameTitle){
+        private boolean visibleTitle;
+        public Title(String nameTitle, boolean visibleTitle){
             this.nameTitle = nameTitle;
-
-            joinStory();
+            this.visibleTitle = visibleTitle;
+             joinStory();
+        }
+        public String newTitle(String newTitle){
+            nameTitle = newTitle;
+            return "изменилась надпись на" + newTitle;
         }
 
         @Override
@@ -32,16 +39,29 @@ public class Gap implements MainInterface {
         }
 
         public String viev(){
-
-            class Outside{
-                public String isOutside(){
-
-                    return " потому что надпись с снаружи";
-                }
+            if (visibleTitle) {
+                return "надпись" + " '" + nameTitle + "' " +  "видно";
             }
+            else{
+                class Outside {
+                    public String getOutside(boolean place) {
+                        if (place){
+                            return " она снаружи";
+                        }
+                        else {return " она неизвестно где";}
+                    }
+                }
 
-            return  "надпис " +"'" +nameTitle+ "'" + " не было видно" + new Outside().isOutside();
+                return "надпис " + "'" + nameTitle + "'" + " не было видно" + new Outside().getOutside(true);
+
+            }
         }
+
+        public  boolean newViev(boolean newViev){
+            visibleTitle = newViev;
+            return visibleTitle;
+        }
+
 
         @Override
         public String toString() {
@@ -61,8 +81,8 @@ public class Gap implements MainInterface {
             return Objects.hash(nameTitle);
         }
 
-
     }
+
     @Override
     public void joinStory() {
         System.out.println(name + " присоединился к истории");
@@ -74,11 +94,14 @@ public class Gap implements MainInterface {
     }
 
     public String moveGap(){
-
-
-        return name + " находится в двери" ;
-
+        return name + " находится" + gapPlaces.gapPlacesText()  ;
     }
+    public GapPlaces newGapPlaces(GapPlaces newGapPlaces){
+        gapPlaces = newGapPlaces;
+        return gapPlaces;
+    }
+
+
 
     @Override
     public String toString() {

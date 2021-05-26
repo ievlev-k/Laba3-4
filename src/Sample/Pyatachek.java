@@ -4,7 +4,8 @@ import Utility.*;
 public class Pyatachek extends HeroikAbstact implements MainInterface {
     private String name;
     private final HeroikType TYPE = HeroikType.PIGLET;
-
+    private MovePyatachek checkingAction = MovePyatachek.JOKED;
+    private SubjectForFiling checkingSubjectForFiling = SubjectForFiling.HOLLOW;
     public Pyatachek(String name, boolean importantHero){
         super(importantHero);
         this.name = name;
@@ -20,8 +21,24 @@ public class Pyatachek extends HeroikAbstact implements MainInterface {
             System.out.println( "Герой "+ TYPE+ " " + name + " присоединился к истории");
         }
     }
-    public String movePyatachek(){
-        return name + " склонился над ним. ";
+
+
+
+    public String movePyatachek(MovePyatachek movePyatachek, SubjectForFiling subjectForFiling){
+        if(checkingAction == movePyatachek && checkingSubjectForFiling == subjectForFiling){
+            try {
+                throw new MoveException( "Уже выполнено");
+            }catch (MoveException e){
+                return e.getMessage();
+            }
+        }
+        checkingAction = movePyatachek;
+        checkingSubjectForFiling = subjectForFiling;
+        return name + checkingAction.movePyatachekText() + checkingSubjectForFiling.subjectForFiingText() ;
+
+    }
+    public String getMovePyatacek(){
+        return name + checkingAction.movePyatachekText() + checkingSubjectForFiling.subjectForFiingText() ;
     }
 
     @Override

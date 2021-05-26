@@ -11,9 +11,9 @@ public class Mailbox implements MainInterface {
 
 
 
-    public Mailbox(String name, Materials TYPE){
+    public Mailbox(String name){
         this.name = name;
-        this.TYPE = TYPE;
+
 
         joinStory();
     }
@@ -25,16 +25,22 @@ public class Mailbox implements MainInterface {
     }
 
 
-    public String typeMailbox() throws MateriallException{
-        if (TYPE.equals(Materials.MEAT)){
+    public String newTypeMailbox(Materials newTYPE) throws MateriallException{
+        if (newTYPE.equals(Materials.MEAT)  ){
             throw new MateriallException("Ящик не может быть мясным");
         }
-        return name + " был" + TYPE.text() ;
+        TYPE = newTYPE;
+        return name + " стал" + TYPE.text() ;
+    }
+    public String getTypeMailbox(){
+        return name + " был" + TYPE.text();
     }
 
     public String getName() {
         return name;
     }
+
+
     public class MateriallException extends RuntimeException{
         public MateriallException(String massage){
             super(massage);
